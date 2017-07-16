@@ -5,8 +5,16 @@ namespace App\Http\Controllers\v1;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use App\Services\v1\FlightsService;
+
 class FlightController extends Controller
 {
+    protected $flights;
+    //dependency injection
+    public function __construct(FlightsService $service)
+    {
+        $this->flights = $service;
+    }
     /**
      * Display a listing of the resource.
      *
