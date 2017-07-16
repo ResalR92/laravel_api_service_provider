@@ -11,6 +11,12 @@ class FlightsService
 		'departureAirport' => 'departure'
 	];
 
+	//query searches
+	protected $clauseProperties = [
+		'status',
+		'flightNumber'
+	];
+
 	public function getFlights($parameters)
 	{
 		if(empty($parameters)) {
@@ -18,8 +24,13 @@ class FlightsService
 		}
 		//query string parameter by "include"
 		$withKeys = $this->getWithKeys($parameters); 
+		//query searches
+		$whereClauses = $this->getWhereClause($parameters);
 
-		return $this->filterFlights(Flight::with($withKeys)->get(), $withKeys);
+		$flights = Flight::with($withKeys)->where($whereClauses)->get();
+
+
+		return $this->filterFlights($flights, $withKeys);
 	}
 
 	//flight.show
@@ -96,7 +107,7 @@ class FlightsService
     //     }
     // }
 
-    public function getWithKeys($parameters)
+    protected function getWithKeys($parameters)
     {
     	$withKeys = [];
     	if(isset($parameters['include'])) {
@@ -108,5 +119,18 @@ class FlightsService
     	}
 
     	return $withKeys;
+    }
+
+    protected function getWhereClause($parameters)
+    {
+    	$clause = [];
+
+    	foreach ($this->clauseProperties as $prop) {
+    		if(in_array($prop, array_keys($parameters))) {
+    			$clause[$prop] = $parameters[$prop];
+    		}
+    	}
+
+    	return $clause;
     }
 }
