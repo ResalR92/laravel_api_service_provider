@@ -66,6 +66,35 @@ class FlightsService
  //        "href": "http://localhost/laravel/latihan/API/airview_api/public/api/v1/flights/JWM12345"
  //    }
 
+	public function updateFlight($req, $flightNumber)
+	{
+		$flight = Flight::where('flightNumber',$flightNumber)->firstOrFail();
+
+		$arrivalAirport = $req->input('arrival.iataCode');
+		$departureAirport = $req->input('departure.iataCode');
+
+		//filter -> make sure that airport is exist in DB
+		$airports = Airport::whereIn('iataCode',[$arrivalAirport,$departureAirport])->get();
+
+		$codes = [];
+
+		foreach ($airports as $port) {
+			$codes[$port->iataCode] = $port->id;
+		}
+		
+		$flight->flightNumber = $req->input('flightNumber');
+		$flight->status = $req->input('status');
+		$flight->arrivalAirPort_id = $codes[$arrivalAirport];
+		$flight->arrivalDateTime = $req->input('arrival.datetime');
+		$flight->departureAirPort_id = $codes[$departureAirport];
+		$flight->departureDateTime = $req->input('departure.datetime');
+
+		$flight->save();
+
+		return $this->filterFlights([$flight]);
+	}
+
+
 
 	//flight.show
 	// public function getFlight($flightNumber)
