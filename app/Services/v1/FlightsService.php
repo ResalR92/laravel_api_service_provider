@@ -6,7 +6,7 @@ use App\Flight;
 
 class FlightsService
 {
-	public function getFlight()
+	public function getFlights()
 	{
 		return Flight::all();
 	}
