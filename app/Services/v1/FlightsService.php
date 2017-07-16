@@ -12,6 +12,18 @@ class FlightsService
 		return $this->filterFlights(Flight::all());
 	}
 
+	//flight.show
+	public function getFlight($flightNumber)
+	{
+		return $this->filterFlights(Flight::where('flightNumber',$flightNumber)->get());
+	}
+	//hasil
+	// {
+ //        "flightNumber": "1yn69572",
+ //        "status": "delayed",
+ //        "href": "http://localhost/laravel/latihan/API/airview_api/public/api/v1/flights/1yn69572"
+ //    }
+
 	//filtering flight
 	protected function filterFlights($flights)
 	{
