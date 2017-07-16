@@ -179,6 +179,8 @@ return [
 
         Barryvdh\Cors\ServiceProvider::class,
 
+        App\Providers\v1\FlightServiceProvider::class,
+
     ],
 
     /*
