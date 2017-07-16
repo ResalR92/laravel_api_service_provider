@@ -17,14 +17,8 @@ class FlightsService
 			return $this->filterFlights(Flight::all());
 		}
 		//query string parameter by "include"
-		$withKeys = [];
-		if(isset($parameters['include'])) {
-			$includeParams = explode(',', $parameters['include']);
-			//intersection array
-			$includes = array_intersect($this->supportedIncludes, $includeParams);
+		$withKeys = $this->getWithKeys($parameters); 
 
-			$withKeys = array_keys($includes);
-		}
 		return $this->filterFlights(Flight::with($withKeys)->get(), $withKeys);
 	}
 
@@ -101,4 +95,18 @@ class FlightsService
     //         "state": "WY"
     //     }
     // }
+
+    public function getWithKeys($parameters)
+    {
+    	$withKeys = [];
+    	if(isset($parameters['include'])) {
+    		$includeParams = explode(',', $parameters['include']);
+    		//intersection array
+    		$includes = array_intersect($this->supportedIncludes, $includeParams);
+
+    		$withKeys = array_keys($includes);
+    	}
+
+    	return $withKeys;
+    }
 }
