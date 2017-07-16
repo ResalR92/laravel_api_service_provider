@@ -40,6 +40,7 @@ class FlightController extends Controller
      */
     public function store(Request $request)
     {
+        $this->flights->validate($request->all());
         try {
             $flight = $this->flights->createFlight($request);
             return response()->json($flight, 201);
@@ -92,6 +93,7 @@ class FlightController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->flights->validate($request->all());
         try {
             $flight = $this->flights->updateFlight($request,$id);
             return response()->json($flight, 200);
