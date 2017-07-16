@@ -94,6 +94,12 @@ class FlightsService
 		return $this->filterFlights([$flight]);
 	}
 
+	public function deleteFlight($flightNumber)
+	{
+		$flight = Flight::where('flightNumber',$flightNumber)->firstOrFail();
+
+		$flight->delete();
+	}
 
 
 	//flight.show

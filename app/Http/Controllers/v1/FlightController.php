@@ -114,6 +114,17 @@ class FlightController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $flight = $this->flights->DeleteFlight($id);
+            return response()->make('',204);
+        } 
+
+        catch (ModelNotFoundException $ex) {
+            throw $ex;
+        }
+
+        catch (Exception $e) {
+            return response()->json(['message' => $e->getMessage()], 500);
+        }
     }
 }
