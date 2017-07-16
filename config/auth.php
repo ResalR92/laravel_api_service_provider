@@ -13,6 +13,7 @@ return [
     |
     */
 
+    //change guard to api as for default for this application
     'defaults' => [
         'guard' => 'web',
         'passwords' => 'users',
