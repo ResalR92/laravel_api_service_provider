@@ -59,10 +59,32 @@ class FlightController extends Controller
      */
     public function show($id)
     {
-         $data = $this->flights->getFlight($id);
+        //query searches
+        $parameters = request()->input();
+        $parameters['flightNumber'] = $id;
+        $data = $this->flights->getFlights($parameters);
 
         return response()->json($data);
     }
+    //hasil query searches
+    // localhost/laravel/latihan/API/airview_api/public/api/v1/flights/1yn69572?include=arrival,departure&status=delayed
+    // {
+    //     "flightNumber": "1yn69572",
+    //     "status": "delayed",
+    //     "href": "http://localhost/laravel/latihan/API/airview_api/public/api/v1/flights/1yn69572",
+    //     "arrival": {
+    //         "datetime": "1981-04-02 14:30:31",
+    //         "iataCode": "wuV",
+    //         "city": "Lake Delia",
+    //         "state": "TX"
+    //     },
+    //     "departure": {
+    //         "datetime": "1981-04-02 09:30:31",
+    //         "iataCode": "aJM",
+    //         "city": "East Lillian",
+    //         "state": "WY"
+    //     }
+    // }
 
     /**
      * Show the form for editing the specified resource.

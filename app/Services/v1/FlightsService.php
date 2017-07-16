@@ -34,10 +34,10 @@ class FlightsService
 	}
 
 	//flight.show
-	public function getFlight($flightNumber)
-	{
-		return $this->filterFlights(Flight::where('flightNumber',$flightNumber)->get());
-	}
+	// public function getFlight($flightNumber)
+	// {
+	// 	return $this->filterFlights(Flight::where('flightNumber',$flightNumber)->get());
+	// }
 	//hasil
 	// {
  //        "flightNumber": "1yn69572",
