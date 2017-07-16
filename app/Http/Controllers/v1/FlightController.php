@@ -14,7 +14,8 @@ class FlightController extends Controller
      */
     public function index()
     {
-        //
+        // call service
+        //return data
     }
 
     /**
