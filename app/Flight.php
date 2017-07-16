@@ -8,12 +8,12 @@ class Flight extends Model
 {
     public function arrivalAirport()
     {
-    	return $this->belongsTo('App\Airport','arrivalAirport_id')
+    	return $this->belongsTo('App\Airport','arrivalAirport_id');
     }
 
     public function departureAirport()
     {
-    	return $this->belongsTo('App\Airport','departureAirport_id')
+    	return $this->belongsTo('App\Airport','departureAirport_id');
     }
 
     //many to many to Customer
